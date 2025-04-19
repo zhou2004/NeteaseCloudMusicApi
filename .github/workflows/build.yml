@@ -37,7 +37,7 @@ jobs:
         NCM_API_TEST_LOGIN_PASSWORD: ${{ secrets.NCM_API_TEST_LOGIN_PASSWORD }}
       run: npm test
     - name: Ubuntu Update with sudo
-        run: sudo apt-get update
+      run: sudo apt-get update
       # 安装 RPM 和 Pacman 插件
     - name: Install RPM & Pacman (on Ubuntu)
       run: |
