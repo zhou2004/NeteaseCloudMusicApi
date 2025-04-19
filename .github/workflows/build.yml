@@ -36,6 +36,29 @@ jobs:
         NCM_API_TEST_LOGIN_PHONE: ${{ secrets.NCM_API_TEST_LOGIN_PHONE }}
         NCM_API_TEST_LOGIN_PASSWORD: ${{ secrets.NCM_API_TEST_LOGIN_PASSWORD }}
       run: npm test
+    - name: Ubuntu Update with sudo
+        run: sudo apt-get update
+      # 安装 RPM 和 Pacman 插件
+    - name: Install RPM & Pacman (on Ubuntu)
+      run: |
+        sudo apt-get install --no-install-recommends -y rpm &&
+        sudo apt-get install --no-install-recommends -y libarchive-tools &&
+        sudo apt-get install --no-install-recommends -y libopenjp2-tools
+    # 安装项目依赖
+    - name: Install Dependencies
+      run: npm install
+    # 构建
+    - name: Build App for Linux
+      run: npm run pkglinux
+      shell: bash
+    # 上传构建产物
+    - name: Upload Linux artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-linux
+        if-no-files-found: ignore
+        path: |
+          bin/*
 
   lint:
     name: Lint
