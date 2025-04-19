@@ -7,9 +7,11 @@ permissions:
   contents: write
 
 on:
-  push:
-    tags:
-      - v*
+  workflow_dispatch: # 手动触发
+  # pull_request:
+  #   branches: [ master ]
+  # push:
+  #   branches: [ master ]
 
 jobs:
   # window 端打包
